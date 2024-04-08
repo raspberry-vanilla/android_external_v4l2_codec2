@@ -759,11 +759,11 @@ bool V4L2Encoder::enqueueInputBuffer(std::unique_ptr<InputFrame> frame) {
              .tv_usec = static_cast<time_t>(timestamp % ::base::Time::kMicrosecondsPerSecond)});
     size_t bufferId = buffer->bufferId();
 
-    for (size_t i = 0; i < planes.size(); ++i) {
+    for (size_t i = 0; i < buffer->planesCount(); ++i) {
         // Single-buffer input format may have multiple color planes, so bytesUsed of the single
         // buffer should be sum of each color planes' size.
         size_t bytesUsed = 0;
-        if (planes.size() == 1) {
+        if (buffer->planesCount() == 1) {
             bytesUsed = allocationSize(format, mInputLayout->mCodedSize);
         } else {
             bytesUsed = ::base::checked_cast<size_t>(
