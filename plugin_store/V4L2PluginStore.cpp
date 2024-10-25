@@ -67,7 +67,7 @@ C2BlockPool* createBlockPool(C2Allocator::id_t allocatorId, C2BlockPool::local_i
 
     switch (allocatorId) {
     case V4L2AllocatorId::SECURE_LINEAR:
-        return new C2PooledBlockPool(allocator, poolId);
+        return new C2PooledBlockPool(allocator, poolId, C2PooledBlockPool::VER_AIDL2);
 
     case V4L2AllocatorId::SECURE_GRAPHIC:
         return new C2BufferQueueBlockPool(allocator, poolId);

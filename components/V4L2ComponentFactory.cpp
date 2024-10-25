@@ -7,7 +7,6 @@
 
 #include <v4l2_codec2/components/V4L2ComponentFactory.h>
 
-#include <codec2/hidl/1.0/InputBufferManager.h>
 #include <log/log.h>
 
 #include <v4l2_codec2/common/V4L2ComponentCommon.h>
@@ -15,6 +14,8 @@
 #include <v4l2_codec2/components/V4L2DecodeInterface.h>
 #include <v4l2_codec2/components/V4L2EncodeComponent.h>
 #include <v4l2_codec2/components/V4L2EncodeInterface.h>
+
+#include <codec2/aidl/InputBufferManager.h>
 
 namespace android {
 
@@ -39,7 +40,7 @@ std::unique_ptr<V4L2ComponentFactory> V4L2ComponentFactory::create(
 V4L2ComponentFactory::V4L2ComponentFactory(const std::string& componentName, bool isEncoder,
                                            std::shared_ptr<C2ReflectorHelper> reflector)
       : mComponentName(componentName), mIsEncoder(isEncoder), mReflector(std::move(reflector)) {
-    using namespace ::android::hardware::media::c2::V1_0;
+    using namespace ::aidl::android::hardware::media::c2;
     // To minimize IPC, we generally want the codec2 framework to release and
     // recycle input buffers when the corresponding work item is done. However,
     // sometimes it is necessary to provide more input to unblock a decoder.

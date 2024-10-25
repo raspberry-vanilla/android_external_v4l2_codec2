@@ -3,16 +3,19 @@
 // found in the LICENSE file.
 
 //#define LOG_NDEBUG 0
-#define LOG_TAG "android.hardware.media.c2@1.0-service-v4l2"
+#define LOG_TAG "android.hardware.media.c2-service-v4l2"
 
 #include <C2Component.h>
+#include <android/binder_manager.h>
+#include <android/binder_process.h>
 #include <base/logging.h>
-#include <codec2/hidl/1.2/ComponentStore.h>
-#include <hidl/HidlTransportSupport.h>
+#include <codec2/aidl/ComponentStore.h>
 #include <log/log.h>
 #include <minijail.h>
 
 #include <v4l2_codec2/components/V4L2ComponentStore.h>
+
+using namespace ::aidl::android::hardware::media::c2;
 
 // This is the absolute on-device path of the prebuild_etc module
 // "android.hardware.media.c2-default-seccomp_policy" in Android.bp.
@@ -29,12 +32,14 @@ static constexpr char kExtSeccompPolicyPath[] =
 int main(int /* argc */, char** /* argv */) {
     ALOGD("Service starting...");
 
+    // Set up minijail to limit system calls.
     signal(SIGPIPE, SIG_IGN);
     android::SetUpMinijail(kBaseSeccompPolicyPath, kExtSeccompPolicyPath);
 
     // Extra threads may be needed to handle a stacked IPC sequence that
     // contains alternating binder and hwbinder calls. (See b/35283480.)
-    android::hardware::configureRpcThreadpool(8, true /* callerWillJoin */);
+    ABinderProcess_setThreadPoolMaxThreadCount(8);
+    ABinderProcess_startThreadPool();
 
 #if LOG_NDEBUG == 0
     ALOGD("Enable all verbose logging of libchrome");
@@ -42,22 +47,14 @@ int main(int /* argc */, char** /* argv */) {
 #endif
 
     // Create IComponentStore service.
-    {
-        using namespace ::android::hardware::media::c2::V1_2;
+    ALOGD("Instantiating Codec2's V4L2 IComponentStore service...");
+    std::shared_ptr<IComponentStore> store = ndk::SharedRefBase::make<utils::ComponentStore>(
+            android::V4L2ComponentStore::Create());
 
-        ALOGD("Instantiating Codec2's V4L2 IComponentStore service...");
-        android::sp<IComponentStore> store(
-                new utils::ComponentStore(android::V4L2ComponentStore::Create()));
-        if (store == nullptr) {
-            ALOGE("Cannot create Codec2's V4L2 IComponentStore service.");
-        } else if (store->registerAsService("v4l2") != android::OK) {
-            ALOGE("Cannot register Codec2's IComponentStore service.");
-        } else {
-            ALOGI("Codec2's IComponentStore service created.");
-        }
-    }
+    const std::string instance = std::string() + IComponentStore::descriptor + "/v4l2";
+    binder_status_t status = AServiceManager_addService(store->asBinder().get(), instance.c_str());
+    CHECK(status == STATUS_OK);
 
-    android::hardware::joinRpcThreadpool();
-    ALOGD("Service shutdown.");
-    return 0;
+    ABinderProcess_joinThreadPool();
+    return EXIT_FAILURE;  // should not reach
 }

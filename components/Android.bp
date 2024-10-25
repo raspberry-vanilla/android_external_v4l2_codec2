@@ -10,8 +10,9 @@ package {
 cc_library {
     name: "libv4l2_codec2_components",
     vendor: true,
+    min_sdk_version: "31", // AHardwareBuffer_getId has been introduced in 31
     defaults: [
-        "libcodec2-hidl-defaults",
+        "libcodec2-aidl-defaults",
     ],
     srcs: [
         "V4L2ComponentFactory.cpp",

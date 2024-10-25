@@ -8,12 +8,11 @@ package {
 }
 
 cc_binary {
-    name: "android.hardware.media.c2@1.2-service-v4l2",
+    name: "android.hardware.media.c2-service-v4l2",
     vendor: true,
     relative_install_path: "hw",
     defaults: [
-        "hidl_defaults",
-        "libcodec2-hidl-defaults",
+        "libcodec2-aidl-defaults",
     ],
     srcs: [
         "service.cpp",
@@ -22,12 +21,11 @@ cc_binary {
         "libavservices_minijail",
         "libchrome",
         "libcutils",
-        "libhidlbase",
         "liblog",
         "libutils",
         "libv4l2_codec2_components",
     ],
     required: ["android.hardware.media.c2-default-seccomp_policy"],
-    init_rc: ["android.hardware.media.c2@1.2-service-v4l2.rc"],
-    vintf_fragments: ["android.hardware.media.c2@1.2-service-v4l2.xml"],
+    init_rc: ["android.hardware.media.c2-service-v4l2.rc"],
+    vintf_fragments: ["android.hardware.media.c2-service-v4l2.xml"],
 }

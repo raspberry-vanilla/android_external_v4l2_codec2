@@ -29,7 +29,6 @@ cc_library_shared {
         "libchrome",
         "libcutils",
         "libhardware",
-        "libhidlbase",
         "liblog",
         "libnativewindow",
         "libstagefright_bufferpool@1.0",
