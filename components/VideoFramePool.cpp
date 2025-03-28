@@ -13,6 +13,7 @@
 #include <C2BlockInternal.h>
 #include <bufferpool/BufferPoolTypes.h>
 
+#include <android/hardware_buffer.h>
 #include <android/hardware/graphics/common/1.0/types.h>
 #include <base/bind.h>
 #include <base/memory/ptr_util.h>
@@ -42,6 +43,21 @@ std::optional<uint32_t> VideoFramePool::getBufferIdFromGraphicBlock(C2BlockPool&
             return std::nullopt;
         }
         return dmabufId.value();
+    }
+    case C2PlatformAllocatorStore::IGBA: {
+        std::shared_ptr<_C2BlockPoolData> blockPoolData =
+                _C2BlockFactory::GetGraphicBlockPoolData(block);
+        struct AHardwareBuffer *buf = nullptr;
+        if (!_C2BlockFactory::GetAHardwareBuffer(blockPoolData, &buf)) {
+            ALOGE("Failed to GetAHardwareBuffer() for IGBA.");
+            return std::nullopt;
+        }
+        uint64_t id;
+        if (AHardwareBuffer_getId(buf, &id) != OK) {
+            ALOGE("Failed to getId for AHardwareBuffer.");
+            return std::nullopt;
+        }
+        return static_cast<uint32_t>(id);
     }
     case C2PlatformAllocatorStore::GRALLOC:
         FALLTHROUGH;
