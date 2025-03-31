@@ -24,8 +24,8 @@
 
 namespace android {
 namespace {
-uint32_t kDecoderRank = ::android::base::GetUintProperty("persist.v4l2_codec2.rank.decoder", 0x80u);
-uint32_t kEncoderRank = ::android::base::GetUintProperty("persist.v4l2_codec2.rank.encoder", 0x80u);
+uint32_t kDecoderRank = ::android::base::GetUintProperty("persist.vendor.v4l2_codec2.rank.decoder", 0x80u);
+uint32_t kEncoderRank = ::android::base::GetUintProperty("persist.vendor.v4l2_codec2.rank.encoder", 0x80u);
 
 std::string getMediaTypeFromComponentName(const std::string& name) {
     if (name == V4L2ComponentName::kH264Decoder || name == V4L2ComponentName::kH264SecureDecoder ||
