@@ -10,29 +10,26 @@ package {
 cc_library {
     name: "libv4l2_codec2_components",
     vendor: true,
-
     defaults: [
         "libcodec2-hidl-defaults",
     ],
-
     srcs: [
-        "VideoFrame.cpp",
-        "VideoFramePool.cpp",
         "V4L2ComponentFactory.cpp",
         "V4L2ComponentStore.cpp",
-        "V4L2Decoder.cpp",
         "V4L2DecodeComponent.cpp",
         "V4L2DecodeInterface.cpp",
-        "V4L2Encoder.cpp",
+        "V4L2Decoder.cpp",
         "V4L2EncodeComponent.cpp",
         "V4L2EncodeInterface.cpp",
+        "V4L2Encoder.cpp",
         "VideoDecoder.cpp",
         "VideoEncoder.cpp",
+        "VideoFrame.cpp",
+        "VideoFramePool.cpp",
     ],
     export_include_dirs: [
         "include",
     ],
-
     header_libs: [
         "libcodec2_internal",
     ],
@@ -49,11 +46,10 @@ cc_library {
         "libui",
         "libv4l2_codec2_common",
     ],
-
     cflags: [
-      "-Werror",
-      "-Wall",
-      "-Wno-unused-parameter",  // needed for libchrome/base codes
-      "-Wthread-safety",
+        "-Wall",
+        "-Werror",
+        "-Wno-unused-parameter", // needed for libchrome/base codes
+        "-Wthread-safety",
     ],
 }

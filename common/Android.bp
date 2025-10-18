@@ -10,11 +10,9 @@ package {
 cc_library {
     name: "libv4l2_codec2_common",
     vendor: true,
-
     defaults: [
         "libcodec2-impl-defaults",
     ],
-
     srcs: [
         "Common.cpp",
         "EncodeHelpers.cpp",
@@ -22,16 +20,14 @@ cc_library {
         "Fourcc.cpp",
         "NalParser.cpp",
         "V4L2ComponentCommon.cpp",
-        "VideoTypes.cpp",
         "V4L2Device.cpp",
         "V4L2DevicePoller.cpp",
         "VideoPixelFormat.cpp",
+        "VideoTypes.cpp",
     ],
-
     export_include_dirs: [
         "include",
     ],
-
     shared_libs: [
         "libchrome",
         "libcutils",
@@ -40,13 +36,11 @@ cc_library {
         "libui",
         "libutils",
     ],
-
     static_libs: [
-        "libyuv_static"
+        "libyuv_static",
     ],
-
     cflags: [
-      "-Werror",
-      "-Wall",
+        "-Wall",
+        "-Werror",
     ],
 }

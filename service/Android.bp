@@ -9,30 +9,25 @@ package {
 
 cc_binary {
     name: "android.hardware.media.c2@1.2-service-v4l2",
-
+    vendor: true,
+    relative_install_path: "hw",
     defaults: [
         "hidl_defaults",
         "libcodec2-hidl-defaults",
     ],
-    vendor: true,
-    relative_install_path: "hw",
-
     srcs: [
         "service.cpp",
     ],
-
     shared_libs: [
-        "libv4l2_codec2_components",
         "libavservices_minijail",
         "libchrome",
         "libcutils",
         "libhidlbase",
         "liblog",
         "libutils",
+        "libv4l2_codec2_components",
     ],
-
     required: ["android.hardware.media.c2-default-seccomp_policy"],
-
     compile_multilib: "both",
     multilib: {
         lib32: {

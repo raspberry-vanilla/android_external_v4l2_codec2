@@ -10,11 +10,9 @@ package {
 cc_library_shared {
     name: "libc2plugin_store",
     vendor_available: true,
-
     defaults: [
         "libcodec2-impl-defaults",
     ],
-
     srcs: [
         "DmabufHelpers.cpp",
         "V4L2PluginStore.cpp",
@@ -23,7 +21,6 @@ cc_library_shared {
     export_include_dirs: [
         "include",
     ],
-
     header_libs: [
         "libcodec2_internal", // needed for including C2BqBufferPriv.h.
     ],
@@ -33,18 +30,17 @@ cc_library_shared {
         "libcutils",
         "libhardware",
         "libhidlbase",
-        "libnativewindow",
         "liblog",
+        "libnativewindow",
         "libstagefright_bufferpool@1.0",
         "libstagefright_bufferqueue_helper",
         "libstagefright_foundation",
         "libui",
     ],
-
     cflags: [
-      "-Werror",
-      "-Wall",
-      "-Wno-unused-parameter",  // needed for libchrome/base codes
-      "-Wthread-safety",
+        "-Wall",
+        "-Werror",
+        "-Wno-unused-parameter", // needed for libchrome/base codes
+        "-Wthread-safety",
     ],
 }
