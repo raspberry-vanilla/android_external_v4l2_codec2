@@ -25,7 +25,34 @@ cc_binary {
         "libutils",
         "libv4l2_codec2_components",
     ],
-    required: ["android.hardware.media.c2-default-seccomp_policy"],
-    init_rc: ["android.hardware.media.c2-service-v4l2.rc"],
-    vintf_fragments: ["android.hardware.media.c2-service-v4l2.xml"],
+    installable: false,
+}
+
+prebuilt_etc {
+    name: "android.hardware.media.c2-service-v4l2.rc",
+    src: "android.hardware.media.c2-service-v4l2.rc",
+    installable: false,
+}
+
+prebuilt_etc {
+    name: "android.hardware.media.c2-service-v4l2.xml",
+    src: "android.hardware.media.c2-service-v4l2.xml",
+    sub_dir: "vintf",
+    installable: false,
+}
+
+apex {
+    name: "com.android.hardware.media.c2.v4l2",
+    manifest: "apex_manifest.json",
+    file_contexts: "apex_file_contexts",
+    key: "com.android.hardware.key",
+    certificate: ":com.android.hardware.certificate",
+    updatable: false,
+    vendor: true,
+    binaries: ["android.hardware.media.c2-service-v4l2"],
+
+    prebuilts: [
+        "android.hardware.media.c2-service-v4l2.rc",
+        "android.hardware.media.c2-service-v4l2.xml",
+    ],
 }
