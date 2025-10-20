@@ -33,8 +33,8 @@ PRODUCT_SOONG_NAMESPACES += external/v4l2_codec2
 
 # Add the build target.
 PRODUCT_PACKAGES += \
-    android.hardware.media.c2@1.0-service-v4l2 \
-    libc2plugin_store
+    android.hardware.media.c2-default-seccomp_policy \
+    com.android.hardware.media.c2.v4l2
 
 # If a customized allocator is needed, then add this package.
 # See more detail at "Customized allocator" section.
@@ -69,9 +69,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.stagefright.c2-poolmask=0xf50000
 
 # Install extended policy for codec2.
-# The destination is: /vendor/etc/seccomp_policy/codec2.vendor.ext.policy
+# The destination is: /vendor/etc/seccomp_policy/android.hardware.media.c2-extended-seccomp_policy
 PRODUCT_COPY_FILES += \
-    <path_to_policy>:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/codec2.vendor.ext.policy
+    <path_to_policy>:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/android.hardware.media.c2-extended-seccomp_policy
 ```
 
 Add decode and encode components in media\_codecs\_c2.xml
@@ -184,13 +184,7 @@ Add decode and encode components in media\_codecs\_c2.xml
 </MediaCodecs>
 ```
 
-Set SELinux file policy in sepolicy/file\_contexts
-
-```
-/vendor/bin/hw/android\.hardware\.media\.c2@1\.0-service-v4l2(.*)?  u:object_r:mediacodec_exec:s0
-```
-
-Add additional permission in codec2.vendor.ext.policy
+Add additional permission in android.hardware.media.c2-extended-seccomp_policy
 
 ```
 _llseek: 1
