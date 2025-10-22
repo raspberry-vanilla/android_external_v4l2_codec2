@@ -29,6 +29,13 @@ cc_binary {
 }
 
 prebuilt_etc {
+    name: "android.hardware.media.c2-extended-seccomp_policy",
+    src: "android.hardware.media.c2-extended-seccomp_policy",
+    vendor: true,
+    sub_dir: "seccomp_policy",
+}
+
+prebuilt_etc {
     name: "android.hardware.media.c2-service-v4l2.rc",
     src: "android.hardware.media.c2-service-v4l2.rc",
     installable: false,
@@ -57,5 +64,6 @@ apex {
     ],
     required: [
         "android.hardware.media.c2-default-seccomp_policy",
+        "android.hardware.media.c2-extended-seccomp_policy",
     ],
 }

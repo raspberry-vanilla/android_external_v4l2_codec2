@@ -66,11 +66,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #   If BLOB is chosen, then the mask should be 0xfc0000
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.stagefright.c2-poolmask=0xf50000
-
-# Install extended policy for codec2.
-# The destination is: /vendor/etc/seccomp_policy/android.hardware.media.c2-extended-seccomp_policy
-PRODUCT_COPY_FILES += \
-    <path_to_policy>:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/android.hardware.media.c2-extended-seccomp_policy
 ```
 
 Add decode and encode components in media\_codecs\_c2.xml
@@ -181,27 +176,6 @@ Add decode and encode components in media\_codecs\_c2.xml
        </MediaCodec>
    </Decoders>
 </MediaCodecs>
-```
-
-Add additional permission in android.hardware.media.c2-extended-seccomp_policy
-
-```
-_llseek: 1
-epoll_create1: 1
-epoll_ctl: 1
-epoll_pwait: 1
-eventfd2: 1
-fstat64: 1
-fstatat64: 1
-fstatfs64: 1
-getcwd: 1
-getdents64: 1
-getuid32: 1
-mmap2: 1
-pselect6: 1
-statfs64: 1
-sysinfo: 1
-ugetrlimit: 1
 ```
 
 Set file permission in ueventd.rc
