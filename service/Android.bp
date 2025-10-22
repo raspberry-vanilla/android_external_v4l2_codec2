@@ -55,4 +55,7 @@ apex {
         "android.hardware.media.c2-service-v4l2.rc",
         "android.hardware.media.c2-service-v4l2.xml",
     ],
+    required: [
+        "android.hardware.media.c2-default-seccomp_policy",
+    ],
 }

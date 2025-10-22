@@ -33,7 +33,6 @@ PRODUCT_SOONG_NAMESPACES += external/v4l2_codec2
 
 # Add the build target.
 PRODUCT_PACKAGES += \
-    android.hardware.media.c2-default-seccomp_policy \
     com.android.hardware.media.c2.v4l2
 
 # If a customized allocator is needed, then add this package.
