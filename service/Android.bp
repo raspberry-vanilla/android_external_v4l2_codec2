@@ -29,13 +29,6 @@ cc_binary {
 }
 
 prebuilt_etc {
-    name: "android.hardware.media.c2-extended-seccomp_policy",
-    src: "android.hardware.media.c2-extended-seccomp_policy",
-    vendor: true,
-    sub_dir: "seccomp_policy",
-}
-
-prebuilt_etc {
     name: "android.hardware.media.c2-service-v4l2.rc",
     src: "android.hardware.media.c2-service-v4l2.rc",
     installable: false,
@@ -45,6 +38,20 @@ prebuilt_etc {
     name: "android.hardware.media.c2-service-v4l2.xml",
     src: "android.hardware.media.c2-service-v4l2.xml",
     sub_dir: "vintf",
+    installable: false,
+}
+
+prebuilt_etc {
+    name: "android.hardware.media.c2-v4l2-default-seccomp_policy",
+    src: ":android.hardware.media.c2-default-seccomp_policy",
+    sub_dir: "seccomp_policy",
+    installable: false,
+}
+
+prebuilt_etc {
+    name: "android.hardware.media.c2-v4l2-extended-seccomp_policy",
+    src: "android.hardware.media.c2-v4l2-extended-seccomp_policy",
+    sub_dir: "seccomp_policy",
     installable: false,
 }
 
@@ -61,9 +68,7 @@ apex {
     prebuilts: [
         "android.hardware.media.c2-service-v4l2.rc",
         "android.hardware.media.c2-service-v4l2.xml",
-    ],
-    required: [
-        "android.hardware.media.c2-default-seccomp_policy",
-        "android.hardware.media.c2-extended-seccomp_policy",
+        "android.hardware.media.c2-v4l2-default-seccomp_policy",
+        "android.hardware.media.c2-v4l2-extended-seccomp_policy",
     ],
 }

@@ -17,17 +17,16 @@
 
 using namespace ::aidl::android::hardware::media::c2;
 
-// This is the absolute on-device path of the prebuild_etc module
-// "android.hardware.media.c2-default-seccomp_policy" in Android.bp.
+// This is the absolute on-device path of the prebuilt_etc module
+// "android.hardware.media.c2-v4l2-default-seccomp_policy" in Android.bp.
 static constexpr char kBaseSeccompPolicyPath[] =
-        "/vendor/etc/seccomp_policy/"
-        "android.hardware.media.c2-default-seccomp_policy";
+        "/apex/com.android.hardware.media.c2.v4l2/etc/seccomp_policy/"
+        "android.hardware.media.c2-v4l2-default-seccomp_policy";
 
 // Additional seccomp permissions can be added in this file.
-// This file does not exist by default.
 static constexpr char kExtSeccompPolicyPath[] =
-        "/vendor/etc/seccomp_policy/"
-        "android.hardware.media.c2-extended-seccomp_policy";
+        "/apex/com.android.hardware.media.c2.v4l2/etc/seccomp_policy/"
+        "android.hardware.media.c2-v4l2-extended-seccomp_policy";
 
 int main(int /* argc */, char** /* argv */) {
     ALOGD("Service starting...");
