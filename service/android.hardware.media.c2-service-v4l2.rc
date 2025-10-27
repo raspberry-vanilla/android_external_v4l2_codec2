@@ -1,4 +1,4 @@
-service android-hardware-media-c2-v4l2-hal /apex/com.android.hardware.media.c2.v4l2/bin/hw/android.hardware.media.c2-service-v4l2
+service vendor.media.c2.v4l2 /apex/com.android.hardware.media.c2.v4l2/bin/hw/android.hardware.media.c2-service-v4l2
     class hal
     user media
     group mediadrm drmrpc
